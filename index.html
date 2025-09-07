@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DC Payment</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="back-arrow">←</div>
+        <div class="title">DC (по номеру телефона)</div>
+        <div class="star-icon">☆</div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Phone Number Input -->
+        <div class="input-group">
+            <input type="text" id="phoneInput" class="phone-input" placeholder="Номер телефона получателя" value="">
+            <div class="input-icons">
+                <div class="history-icon">
+                    <img src="images/1C0888A9-62BD-4F12-B3F9-53BFB33494E6_4_5005_c.jpeg" alt="History">
+                </div>
+            </div>
+        </div>
+
+        <!-- Check Button -->
+        <button class="check-button">Проверить номер/счет</button>
+
+        <!-- Amount Input -->
+        <div class="input-group">
+            <input type="number" id="amountInput" class="amount-input" placeholder="TJS Сумма" value="" step="0.01">
+        </div>
+
+        <!-- Comment Input -->
+        <div class="input-group">
+            <input type="text" class="comment-input" placeholder="Комментарий">
+        </div>
+
+        <!-- Action Button -->
+        <button id="actionButton" class="action-button">Далее</button>
+
+        <!-- Card Selection -->
+        <div class="card-selection">
+            <div class="card selected" data-card="DBC****9460">
+                <div class="card-number">DBC****9460</div>
+                <div class="card-balance">1241.22 TJS</div>
+            </div>
+            <div class="card" data-card="ZET****">
+                <div class="card-number">ZET****....</div>
+                <div class="card-balance">...</div>
+            </div>
+            <div class="card" data-card="DBC****7767">
+                <div class="card-number">DBC****7767</div>
+                <div class="card-balance">1241.22 TJS</div>
+            </div>
+        </div>
+
+        <!-- Instruction Text -->
+        <div class="instruction-text">
+            Для перевода на карту Душанбе Сити укажите номер кошелька и введите сумму перевода. Без комиссии. Если вы отправили деньги не тому человеку, обратитесь к получателю перевода. Деньги может вернуть только получатель.
+        </div>
+    </div>
+
+    <!-- Confirmation Modal - Half height -->
+    <div id="confirmationModal" class="modal confirmation">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Подтверждение платежа</h2>
+                <div class="amount-display"></div>
+            </div>
+            <div class="modal-body">
+                <div class="payment-details">
+                    <div class="detail-row">
+                        <span class="label">Поставщик:</span>
+                        <span class="value">DC (по номеру телефона)</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Номер/счет:</span>
+                        <span class="value" id="confirmationPhone">061329999</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Способ оплаты:</span>
+                        <span class="value">9762 **** **** 9460</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Комиссия:</span>
+                        <span class="value">0.00 TJS</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Сумма зачисления:</span>
+                        <span class="value">1.00 TJS</span>
+                    </div>
+                </div>
+            </div>
+            <button id="confirmButton" class="confirm-button">Подтверждаю</button>
+        </div>
+    </div>
+
+    <!-- Processing Modal - Same layout as Success Modal -->
+    <div id="processingModal" class="modal processing">
+        <div class="modal-content processing-receipt">
+            <div class="receipt-header">
+                <div class="processing-icon">
+                    <img src="images/638AFDD9-DF4E-428B-9029-06ED4079BD4A_4_5005_c.jpeg" alt="Processing" id="processingIcon">
+                </div>
+                <div class="receipt-info">
+                    <div class="success-title"><h3>Выполняется</h3></div>
+                </div>
+            </div>
+            
+            <div class="processing-details">
+                <div class="processing-section">
+                    <div class="detail-row">
+                        <span class="label">Получатель:</span>
+                        <span class="value" id="processingPhone">061329999</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Сумма:</span>
+                        <span class="value" id="processingAmount">1.00 TJS</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Комиссия:</span>
+                        <span class="value">0,00 TJS</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Дата:</span>
+                        <span class="value" id="processingDate">07.09.25</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Время:</span>
+                        <span class="value" id="processingTime">23:12:17</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal - 80% of amount field height -->
+    <div id="successModal" class="modal success">
+        <div class="modal-content expanded-receipt">
+            <div class="receipt-header">
+                <div class="success-icon">
+                    <img src="images/88F54815-F2BA-443F-8CA4-AC4784316B4E_4_5005_c.jpeg" alt="Success" id="successIcon">
+                </div>
+                <div class="receipt-info">
+                    <div class="success-title"><h3>Платеж выполнен</h3></div>
+                    
+                </div>
+            </div>
+            
+            <div class="receipt-details">
+                <div class="receipt-section">
+                    <div class="detail-row">
+                        <span class="label">Получатель:</span>
+                        <span class="value" id="successPhone">061329999</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Сумма:</span>
+                        <span class="value" id="successAmount">1.00 TJS</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Комиссия:</span>
+                        <span class="value">0,00 TJS</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Дата:</span>
+                        <span class="value" id="successDate">07.09.25</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Время:</span>
+                        <span class="value" id="successTime">23:12:17</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="home-button">На главную</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,619 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #F5F5F5;
+    height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Status Bar */
+.status-bar {
+    background-color: #2196F3;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 20px 4px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.status-icons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.signal {
+    font-size: 12px;
+}
+
+.lte {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.battery {
+    font-size: 14px;
+}
+
+/* Header */
+.header {
+    background-color: #2196F3;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px 16px;
+    font-weight: 600;
+}
+
+.back-arrow {
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    flex: 1;
+}
+
+.star-icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Main Content */
+.main-content {
+    background-color: #F5F5F5;
+    padding: 20px;
+    padding-bottom: 100px;
+    min-height: calc(100vh - 200px);
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.phone-input, .amount-input, .comment-input {
+    width: 100%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 12px;
+    background-color: white;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.phone-input::placeholder, .amount-input::placeholder, .comment-input::placeholder {
+    color: #999;
+    font-weight: 400;
+}
+
+.input-icons {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 12px;
+}
+
+/* Icon styles - only history icon, no contacts icon */
+.history-icon {
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.history-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.contacts-icon {
+    display: none;
+}
+
+.check-button {
+    width: 100%;
+    padding: 16px;
+    background-color: #BBDEFB;
+    color: #1976D2;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.check-button:hover {
+    background-color: #90CAF9;
+}
+
+/* Card Selection */
+.card-selection {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+}
+
+.card {
+    min-width: 120px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background-color: white;
+    border: 2px solid #E0E0E0;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.card.selected {
+    background-color: #2196F3;
+    border-color: #2196F3;
+    color: white;
+}
+
+.card-number {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.card-balance {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* Instruction Text */
+.instruction-text {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+/* Action Button */
+.action-button {
+    width: 100%;
+    padding: 18px;
+    background-color: #FF9800;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-bottom: 20px;
+}
+
+.action-button:hover {
+    background-color: #F57C00;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 1000;
+    align-items: flex-end;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background-color: white;
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+    padding: 24px;
+    max-height: 80vh;
+    overflow: hidden;
+}
+
+/* Confirmation modal - covers half of comment field height */
+.modal.confirmation {
+    align-items: flex-end;
+}
+
+.modal.confirmation .modal-content {
+    width: 100%;
+    height: 50vh;
+    border-radius: 20px 20px 0 0;
+    max-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Processing modal - same as success modal but with yellow icon */
+.modal.processing {
+    align-items: flex-end;
+}
+
+.modal.processing .modal-content {
+    width: 100%;
+    height: 70vh; /* Same height as success modal */
+    border-radius: 20px 20px 0 0;
+    max-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0; /* Remove padding to match success modal */
+}
+
+/* Success modal - covers 80% of amount field height */
+.modal.success {
+    align-items: flex-end;
+}
+
+.modal.success .modal-content {
+    width: 100%;
+    height: 70vh;
+    border-radius: 20px 20px 0 0;
+    max-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modal-header {
+    /* text-align: center; */
+    padding-top: 34px;
+}
+
+.modal-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.amount-display {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2196F3;
+    margin-bottom: 8px;
+}
+
+/* Payment Details */
+.payment-details {
+    margin-top: 20px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #F0F0F0;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.label {
+    font-size: 14px;
+    color: #666;
+    font-weight: 400;
+}
+
+.value {
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+    text-align: right;
+}
+
+/* Processing Modal - Same layout as Success Modal */
+.processing-receipt {
+    max-height: 70vh;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.processing-header {
+    text-align: left;
+    padding: 20px 24px;
+    background-color: white;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Processing icon - yellow clock on the left, same size as success icon */
+.processing-icon {
+    width: 1500px;
+    height: 80px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    flex-shrink: 0;
+}
+
+.processing-title {
+    color: #333;
+    width: 1500px;
+    height: 80px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    flex-shrink: 0;
+}
+
+#processingIcon {
+    width: 150px;  /* увеличь в 3-4 раза относительно текущего размера */
+    height: auto;
+    /* padding: 60px; */
+    padding-left: 40px;
+    padding-top: 40px;
+}
+
+.processing-icon img {
+
+    object-fit: contain;
+}
+
+.success-title {
+    font-size: 80px;
+    font-weight: 700;
+    color: #333;
+    padding-left: 20px;
+    padding-top: 40px;
+    width: 75%;
+}
+
+.processing-amount {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2196F3;
+}
+
+.processing-details {
+    padding: 20px 24px;
+    background-color: white;
+    flex: 1;
+    overflow: hidden;
+}
+
+.processing-section {
+    margin-bottom: 16px;
+}
+
+.processing-section .detail-row {
+    padding: 6px 0;
+    border-bottom: 1px solid #F5F5F5;
+}
+
+.processing-section .detail-row:last-child {
+    border-bottom: none;
+}
+
+/* Status Section - Remove this as we're using new layout */
+.status-section {
+    display: none;
+}
+
+.status-icon {
+    display: none;
+}
+
+/* Success Modal - White background with green checkmark on the left */
+.expanded-receipt {
+    max-height: 70vh;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.receipt-header {
+    
+    padding: 20px 24px;
+    background-color: white;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    flex-direction: column; /* теперь элементы идут сверху вниз */
+  
+    gap: 16px;
+}
+
+#successIcon {
+    width: 150px;  /* увеличь в 3-4 раза относительно текущего размера */
+    height: auto;
+    /* padding: 60px; */
+    padding-left: 40px;
+    padding-top: 40px;
+}
+
+
+
+/* Success icon - green checkmark on the left, no border, bigger size */
+.success-icon {
+    width: 1500px;
+    height: 80px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    flex-shrink: 0;
+}
+
+.success-icon img {
+   
+    object-fit: contain;
+}
+
+.success-title {
+    font-size: 80px;
+    font-weight: 700;
+    color: #333;
+    padding-left: 10px;
+    padding-top: 40px;
+    width: 75%;
+}
+
+.receipt-amount {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2196F3;
+}
+
+.receipt-details {
+    padding: 20px 24px;
+    background-color: white;
+    flex: 1;
+    overflow: hidden;
+}
+
+.receipt-section {
+    margin-bottom: 16px;
+}
+
+.receipt-section .detail-row {
+    padding: 6px 0;
+    border-bottom: 1px solid #F5F5F5;
+}
+
+.receipt-section .detail-row:last-child {
+    border-bottom: none;
+}
+
+/* Buttons */
+.confirm-button, .home-button {
+    width: calc(100% - 40px);
+    margin: 20px;
+    padding: 18px;
+    background-color: #FF9800;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+}
+
+.confirm-button:hover, .home-button:hover {
+    background-color: #F57C00;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+    .main-content {
+        padding: 16px;
+        padding-bottom: 100px;
+    }
+    
+    .confirm-button, .home-button {
+        margin: 16px;
+        width: calc(100% - 32px);
+    }
+    
+    .receipt-header, .processing-header {
+        padding: 16px;
+    }
+    
+    .receipt-details, .processing-details {
+        padding: 16px;
+    }
+    
+    /* Smaller icons on mobile but still bigger than before */
+    .history-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .processing-icon, .success-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .processing-icon img, .success-icon img {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .processing-title, .success-title {
+        font-size: 18px;
+    }
+    
+    .processing-amount, .receipt-amount {
+        font-size: 20px;
+    }
+    
+    /* Mobile modal heights */
+    .modal.processing .modal-content,
+    .modal.success .modal-content {
+        height: 65vh;
+        max-height: 65vh;
+    }
+    
+    .processing-receipt, .expanded-receipt {
+        max-height: 65vh;
+    }
+}
+
+/* Hide keypad when modal is open */
+body.modal-open .action-button {
+    display: none;
+}
+
+/* Additional styles for receipt info layout */
+.receipt-info, .processing-info {
+    flex: 1;
+}
+
+.receipt-info .success-title,
+.processing-info .processing-title {
+    margin-bottom: 4px;
+}
+
+.receipt-info .receipt-amount,
+.processing-info .processing-amount {
+    margin-bottom: 0;
+}
