@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // State
     let buttonState = 0; // 0: Далее, 1: Оплатить, 2: Подтвердить
-    let selectedCard = 'DBC****9460';
+    let selectedCard = 'DBC****8520';
     let currentAmount = 1;
     let currentPhone = '061329999';
     let isProcessing = false; // Prevent multiple clicks
