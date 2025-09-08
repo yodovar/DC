@@ -19,7 +19,7 @@
     <div class="main-content">
         <!-- Phone Number Input -->
         <div class="input-group">
-            <input type="text" id="phoneInput" class="phone-input" placeholder="Номер телефона получателя" value="">
+            <input type="number" id="phoneInput" class="phone-input" placeholder="Номер телефона получателя" value="">
             <div class="input-icons">
                 <div class="history-icon">
                     <img src="images/1C0888A9-62BD-4F12-B3F9-53BFB33494E6_4_5005_c.jpeg" alt="History">
@@ -66,7 +66,7 @@
     </div>
 
     <!-- Confirmation Modal - Half height -->
-    <div id="confirmationModal" class="modal confirmation">
+    <div id="confirmationModal" class="modal processing">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Подтверждение платежа</h2>
@@ -80,7 +80,7 @@
                     </div>
                     <div class="detail-row">
                         <span class="label">Номер/счет:</span>
-                        <span class="value" id="confirmationPhone">061329999</span>
+                        <span class="value" id="confirmationPhone"></span>
                     </div>
                     <div class="detail-row">
                         <span class="label">Способ оплаты:</span>
@@ -92,7 +92,7 @@
                     </div>
                     <div class="detail-row">
                         <span class="label">Сумма зачисления:</span>
-                        <span class="value">1.00 TJS</span>
+                        <span class="value"></span>
                     </div>
                 </div>
             </div>
@@ -116,11 +116,11 @@
                 <div class="processing-section">
                     <div class="detail-row">
                         <span class="label">Получатель:</span>
-                        <span class="value" id="processingPhone">061329999</span>
+                        <span class="value" id="processingPhone"></span>
                     </div>
                     <div class="detail-row">
                         <span class="label">Сумма:</span>
-                        <span class="value" id="processingAmount">1.00 TJS</span>
+                        <span class="value" id="processingAmount"></span>
                     </div>
                     <div class="detail-row">
                         <span class="label">Комиссия:</span>
@@ -128,7 +128,7 @@
                     </div>
                     <div class="detail-row">
                         <span class="label">Дата:</span>
-                        <span class="value" id="processingDate">07.09.25</span>
+                        <span class="value" id="processingDate"></span>
                     </div>
                     <div class="detail-row">
                         <span class="label">Время:</span>
@@ -177,7 +177,7 @@
                 </div>
             </div>
             
-            <button class="home-button">На главную</button>
+            <button class="home-button" onclick="window.location.href='index.html';">На главную</button>
         </div>
     </div>
 
