@@ -45,7 +45,7 @@ body {
 
 /* Header */
 .header {
-    background-color: #2196FF;;
+    background-color: #2196F3;
     color: white;
     display: flex;
     align-items: center;
@@ -308,21 +308,23 @@ body {
 /* Payment Details */
 .payment-details {
     margin-top: 20px;
-    flex: 1;
-    overflow: hidden;
+    padding: 0 16px;          /* отступы слева и справа */
+    width: 100%;
+    box-sizing: border-box;   /* чтобы padding учитывался в ширине */
 }
 
 .detail-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #F0F0F0;
+    padding: 8px 0;
+    border-bottom: none;      /* убираем линии под строками */
 }
 
 .detail-row:last-child {
     border-bottom: none;
 }
+
 
 .label {
     font-size: 14px;
@@ -334,7 +336,8 @@ body {
     font-size: 14px;
     color: #333;
     font-weight: 600;
-    text-align: right;
+    text-align: right;        /* выравнивание текста по левому краю */
+    margin-left: 70px;       /* отступ от левого края */
 }
 
 /* Processing Modal - Same layout as Success Modal */
@@ -404,6 +407,13 @@ body {
     width: 75%;
 }
 
+#confirmButton {
+    position: absolute; /* или fixed */
+    top: 90%; /* вместо 50%, стало выше на 5% */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .processing-amount {
     font-size: 24px;
     font-weight: 700;
@@ -423,7 +433,7 @@ body {
 
 .processing-section .detail-row {
     padding: 6px 0;
-    border-bottom: 1px solid #F5F5F5;
+    border-bottom: none;
 }
 
 .processing-section .detail-row:last-child {
@@ -515,7 +525,7 @@ body {
 
 .receipt-section .detail-row {
     padding: 6px 0;
-    border-bottom: 1px solid #F5F5F5;
+    border-bottom: none;
 }
 
 .receipt-section .detail-row:last-child {
